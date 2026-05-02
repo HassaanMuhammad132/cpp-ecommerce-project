@@ -13,7 +13,7 @@ void login(string &email)
         cin >> email;
         cout<<endl;
 
-        if (email == "h")
+        if (email == "example@gmail.com")
         {
             while (true) // loop until password is correct
             {
