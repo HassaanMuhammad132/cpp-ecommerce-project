@@ -2,28 +2,38 @@
 #include <string>
 using namespace std;
 
-// Function for login  ( 1st function )	
+// UI LINE FUNCTION
+void line()
+{
+    cout << "-------------------------------------------\n";
+}
+
+// LOGIN FUNCTION
 void login(string &email)
 {
     int pass;
 
-    while (true) // repeat until login is successful
+    while (true)
     {
+        line();
+        cout << "           LOGIN SYSTEM\n";
+        line();
+
         cout << "Enter your email here: ";
         cin >> email;
-        cout<<endl;
+        cout << endl;
 
         if (email == "example@gmail.com")
         {
-            while (true) // loop until password is correct
+            while (true)
             {
                 cout << "Enter your password here: ";
                 cin >> pass;
 
                 if (pass == 1111)
                 {
-                    cout << "\nYou have entered your daraz account!\n\n";
-                    return; // exit function on successful login
+                    cout << "\nLogin Successful! Welcome\n\n";
+                    return;
                 }
                 else
                 {
@@ -38,57 +48,44 @@ void login(string &email)
     }
 }
 
-// Function for product selection ( 2nd function )
-
+// PRODUCT SELECTION
 void selectProducts(string &tproduct, int &tquantity, int &totalbill)
 {
-    string product;
+    string choice;
     int price, quantity, bill;
     char otherp;
+    string product;
 
     do
     {
-        // Loop until a valid product is entered
         while (true)
         {
-            cout << "Which product do you want to buy?\n";
-            cout << "Chair, Table, Laptop, Mobile, Cloths: ";
-            cin >> product;
-            cout<<endl;
+            line();
+            cout << "            PRODUCT MENU\n";
+            line();
 
-            if (product == "chair" || product == "Chair" || product == "CHAIR")
-            {
-                price = 2000;
-                break;
-            }
-            else if (product == "table" || product == "Table" || product == "TABLE")
-            {
-                price = 5000;
-                break;
-            }
-            else if (product == "laptop" || product == "Laptop" || product == "LAPTOP")
-            {
-                price = 15000;
-                break;
-            }
-            else if (product == "mobile" || product == "Mobile" || product == "MOBILE")
-            {
-                price = 30000;
-                break;
-            }
-            else if (product == "cloths" || product == "Cloths" || product == "CLOTHS")
-            {
-                price = 1000;
-                break;
-            }
+            cout << "1. Chair   (2000)\n";
+            cout << "2. Table   (5000)\n";
+            cout << "3. Laptop  (15000)\n";
+            cout << "4. Mobile  (30000)\n";
+            cout << "5. Cloths  (1000)\n";
+            line();
+
+            cout << "Enter your choice (1-5): ";
+            cin >> choice;
+            cout << endl;
+
+            if (choice == "1") { product = "Chair"; price = 2000; break; }
+            else if (choice == "2") { product = "Table"; price = 5000; break; }
+            else if (choice == "3") { product = "Laptop"; price = 15000; break; }
+            else if (choice == "4") { product = "Mobile"; price = 30000; break; }
+            else if (choice == "5") { product = "Cloths"; price = 1000; break; }
             else
             {
-                cout << "Product not available. Please enter a valid product.\n";
-                cout<<endl;
+                cout << "Invalid choice. Please select between 1-5.\n\n";
             }
         }
 
-        // Loop until valid quantity  ( 3rd function )
         while (true)
         {
             cout << "Enter quantity: ";
@@ -100,42 +97,55 @@ void selectProducts(string &tproduct, int &tquantity, int &totalbill)
                 cout << "Quantity must be positive. Try again.\n";
         }
 
-        // Calculate bill
         bill = price * quantity;
         tquantity += quantity;
         totalbill += bill;
         tproduct = tproduct + product + " ";
 
-        cout << "Bill for " <<quantity << product << ": " << bill << endl<<endl;
+        line();
+        cout << " Added to Cart\n";
+        line();
+        cout << product << " x " << quantity << " = " << bill << endl;
+        line();
 
         cout << "Do you want to buy another product? (y/n): ";
         cin >> otherp;
-        cout<<endl;
+        cout << endl;
 
     } while (otherp == 'y' || otherp == 'Y');
 }
 
-// Function for payment ( 4rd function )
-
+// PAYMENT FUNCTION
 bool paymentProcess(string &payment)
 {
     string pin;
     int attempts = 0;
 
-    while (true) // loop until valid payment method
+    while (true)
     {
-        cout << "\nPlease confirm payment method.\n";
-        cout << "Jazzcash, Easypaisa, Bank: ";
-        cin >> payment;
-        cout<<endl;
+        line();
+        cout << "          PAYMENT METHOD\n";
+        line();
 
-        if (payment == "jazzcash" || payment == "easypaisa" || payment == "bank")
-            break;
+        cout << "1. Bank\n";
+        cout << "2. JazzCash\n";
+        cout << "3. EasyPaisa\n";
+        line();
+
+        cout << "Enter your choice (1-3): ";
+        cin >> payment;
+        cout << endl;
+
+        if (payment == "1") { payment = "bank"; break; }
+        else if (payment == "2") { payment = "jazzcash"; break; }
+        else if (payment == "3") { payment = "easypaisa"; break; }
         else
-            cout << "Invalid payment method. Try again.\n";
+        {
+            cout << "Invalid choice. Please select between 1-3.\n";
+        }
     }
 
-    while (attempts < 3) // pin verification loop
+    while (attempts < 3)
     {
         cout << "Enter pin (3 tries only): ";
         cin >> pin;
@@ -158,22 +168,28 @@ bool paymentProcess(string &payment)
     return false;
 }
 
-// Function for order summary ( 5th function )	
-
+// ORDER SUMMARY
 void orderSummary(string email, string tproduct, int tquantity, string payment, int totalbill)
 {
-    cout << "\nSummary of your order:\n"<<endl;
+    line();
+    cout << "          ORDER SUMMARY\n";
+    line();
+
     cout << "Email: " << email << endl;
     cout << "Products: " << tproduct << endl;
     cout << "Total Quantity: " << tquantity << endl;
     cout << "Total Bill: " << totalbill << endl;
     cout << "Payment method: " << payment << endl;
-    cout << "Status: Confirmed\n"<<endl;
-    cout << "Your order will arrive soon!\n\n";
+
+    line();
+    cout << "Status: Confirmed\n";
+    cout << "Your order will arrive soon!\n";
+    line();
 }
 
-int main()  // ( 6th main function )
-	{
+// MAIN FUNCTION
+int main()
+{
     char restart;
 
     do
@@ -183,16 +199,18 @@ int main()  // ( 6th main function )
         int tquantity = 0;
         int totalbill = 0;
 
-        // Login loop inside function now handles retries
         login(email);
 
-        // Product selection
         selectProducts(tproduct, tquantity, totalbill);
-        cout << "------------------------\n";
-        cout << "Bill for " << tquantity << " " << tproduct << ": " << totalbill << endl;
-        cout << "------------------------\n";
 
-        // Payment
+        line();
+        cout << "            FINAL BILL\n";
+        line();
+
+        cout << "Total Items: " << tquantity << endl;
+        cout << "Total Bill: " << totalbill << endl;
+        line();
+
         if (paymentProcess(payment))
         {
             orderSummary(email, tproduct, tquantity, payment, totalbill);
@@ -203,7 +221,9 @@ int main()  // ( 6th main function )
 
     } while (restart == 'y' || restart == 'Y');
 
-    cout << "Thank you for shopping with us!\n";
+    cout << "\n========================================\n";
+    cout << "     Thank you for shopping with us!\n";
+    cout << "========================================\n";
 
     return 0;
 }
